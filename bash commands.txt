@@ -1,0 +1,103 @@
+clear | czyści ekran
+exit | wychodzi z konsoli
+
+history | wyświetla historię wpisywanych komend
+hisotry n | wyświetla historię n ostatnich komend
+
+which ls | wyświetla ścieżkę, w której zainstalowana jest komenda ls
+
+pwd | wyświetla ścieżkę do aktualnego folderu
+ls | wyświetla zawartość aktualnego folderu
+ls -l | wyświetla zawartość aktualnego folderu ze szczegółowymi informacjami
+ls *jpg | wyświetla tylko pliki z rozszerzeniem .jpg
+
+cd .. | o 1 w górę
+cd ../.. | o 2 w górę
+
+echo $PATH | wyświetla ścieżki zmiennych
+
+touch test.txt | tworzy plik
+mv test.txt test2.txt | zmienia nazwę pliku
+rm test.txt | usuwa plik
+
+cat test.txt | wyświetla zawartość pliku
+less test.txt | "otwiera" plik i wyświetla zawartość | Q - wyjście z podglądu pliku
+
+mkdir projects | tworzy katalog
+mkdir -p projects/web/ | tworzy kilka katalogów
+rmdir projects | usuwa katalog
+rm -r -f projects | wymusza usunięcie folderu i jego zawartości
+rm -rf | to co wyżej
+
+echo "Hello world!" >> test.txt | zapisuje ciąg znaków do nowego pliku lub dołącza do już istniejącego
+echo "Hello world!" > test.txt | nadpisuje zawartość pliku
+ls -al > test.txt | zapisuje wynik (szczegółową zawartość folderu) do pliku
+
+
+
+###### SKRYPTY ######
+code script.sh | w tym przypadku tworzy nowy plik w Visual Studio Code (stąd code na początku - może to być inny edytor, jeśli tylko jest ustawiona zmienna środowiskowa)
+
+which bash zwraca /usr/bin/bash więc pierwsza linia skryptu powinna zaczynać się od #!/bin/bash
+
+chmod +x script.sh | dodaje możliwość wykonywania pliku, gdyby była wyłączona (x - wykonywanie, r - odczytywanie, w - zapisywanie)
+./script.sh | wykonuje skrypt zlokalizowany w aktualnym folderze
+
+    --- TWORZENIE WŁASNYCH ALIASÓW ---
+
+Otwieramy plik .bashrc
+    code .bashrc
+
+Wpisujemy w nim (na przykład)
+    alias c='code'
+    alias ll='ls -al'
+
+Wczytujemy na nowo plik .bashrc
+    source .bashrc
+
+Od teraz można używać skróconych nazw komend
+    c test.txt oznacza to samo co: code test.txt
+    ll oznacza to samo co: ls -al
+
+    --- PRZYKŁADY INSTRUKCJI WARUNKOWYCH / PĘTLI ITD. ---
+
+-------------------------------------
+#!/bin/bash
+
+TEST_VARIABLE="Adrian"
+
+echo "Hello ${TEST_VARIABLE}!"
+
+NAME="Adrian"
+
+if [ "$NAME" = "Adriano" ]
+then
+	echo "Your name is Adrian! :)"
+elif [ "$NAME" = "Jalu" ]
+then
+	echo "Your name is Jalu! :)"
+else
+	echo "I do not know your name! :("
+fi
+-------------------------------------
+
+-------------------------------------
+#!/bin/bash
+
+LANGS="Java C# JavaScript PHP"
+
+for LANG in $LANGS
+do
+	echo "Language: $LANG"
+done
+
+FILES=$(ls *txt)
+DATE=$(date +%F)
+
+for FILE in $FILES
+do
+	echo "Renaming file ${FILE} to ${DATE}-${FILE}"
+	mv ${FILE} ${DATE}-${FILE}
+done
+-------------------------------------
+
